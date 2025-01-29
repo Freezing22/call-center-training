@@ -3,77 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Проверка доступности IP через WebRTC</title>
+    <title>Пинг ресурсов</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-        .result {
-            margin-top: 20px;
-            font-size: 18px;
-        }
-        .success {
-            color: green;
-        }
-        .failure {
-            color: red;
-        }
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        input[type="text"] { width: 70%; padding: 10px; }
+        button { padding: 10px 20px; }
+        .result { margin-top: 20px; padding: 10px; background: #f4f4f4; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
-    <h1>Проверка доступности IP-адресов через WebRTC</h1>
-    <button onclick="checkIPs()">Проверить IP</button>
+    <div class="container">
+        <h1>Проверка доступности ресурсов</h1>
+        <input type="text" id="resource" placeholder="call-app01.corp.gpbmobile.ru">
+        <button onclick="pingResource()">Пинговать</button>
+        <div class="result" id="result"></div>
 
-    <div id="results" class="result"></div>
+        <h2>Основные ресурсы</h2>
+        <ul>
+            <li><a href="https://gpbmobile.hrbox.io/" target="_blank">Mobile.live</a></li>
+            <li><a href="https://cnfl.int.gpbmobile.ru/" target="_blank">Confluence</a></li>
+            <li><a href="https://github.com" target="_blank">GitHub</a></li>
+        </ul>
+    </div>
 
     <script>
-        function checkIPs() {
-            const ips = ['172.31.103.4', '8.8.8.8', '775397.14.rt.ru'];
-            const resultsContainer = document.getElementById('results');
-            resultsContainer.innerHTML = ''; // Очистить предыдущие результаты
+        async function pingResource() {
+            const resource = document.getElementById('resource').value;
+            const resultDiv = document.getElementById('result');
 
-            ips.forEach(ip => {
-                testConnection(ip)
-                    .then(() => {
-                        resultsContainer.innerHTML += `<div class="success">IP ${ip} доступен!</div>`;
-                    })
-                    .catch(() => {
-                        resultsContainer.innerHTML += `<div class="failure">IP ${ip} недоступен!</div>`;
-                    });
-            });
-        }
+            if (!resource) {
+                resultDiv.textContent = "Пожалуйста, введите домен или IP.";
+                return;
+            }
 
-        function testConnection(ip) {
-            return new Promise((resolve, reject) => {
-                const rtcPeerConnection = new RTCPeerConnection();
-                const dataChannel = rtcPeerConnection.createDataChannel("test");
-
-                rtcPeerConnection.createOffer().then(offer => {
-                    return rtcPeerConnection.setLocalDescription(offer);
+            try {
+                const response = await fetch('/ping', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ resource: resource })
                 });
-
-                rtcPeerConnection.onicecandidate = (event) => {
-                    if (event.candidate) {
-                        const candidate = event.candidate.candidate;
-                        if (candidate.includes(ip)) {
-                            resolve();
-                            rtcPeerConnection.close();
-                        }
-                    } else {
-                        reject();
-                    }
-                };
-
-                setTimeout(() => {
-                    reject();
-                    rtcPeerConnection.close();
-                }, 3000); // Таймаут 3 секунды на попытку
-            });
+                const data = await response.json();
+                resultDiv.textContent = data.output || "Ошибка при выполнении запроса.";
+            } catch (error) {
+                resultDiv.textContent = "Ошибка: " + error.message;
+            }
         }
     </script>
 </body>
