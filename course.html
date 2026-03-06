@@ -290,7 +290,7 @@
             color: #1a2b4c;
         }
 
-        .nav-btn:hover {
+        .nav-btn:hover:not(:disabled) {
             background: #f8b0d0;
         }
 
@@ -353,71 +353,76 @@
         <aside class="course-sidebar fade-in">
             <h2><i class="fas fa-list-ul"></i> Программа курса</h2>
             <ul class="module-list">
+                <!-- Модуль 1 -->
                 <li class="module-item">
                     <div class="module-title"><i class="fas fa-laptop"></i> Модуль 1. Знакомство с рабочим местом</div>
                     <ul class="lesson-list">
-                        <li class="lesson-item active"><i class="fas fa-play-circle"></i> 1.1 Обзор систем <span class="lesson-meta">10 мин</span></li>
-                        <li class="lesson-item"><i class="fas fa-file-alt"></i> 1.2 Как всё связано <span class="lesson-meta">8 мин</span></li>
+                        <li class="lesson-item active" data-lesson="1.1"><i class="fas fa-play-circle"></i> 1.1 Обзор систем <span class="lesson-meta">10 мин</span></li>
+                        <li class="lesson-item" data-lesson="1.2"><i class="fas fa-file-alt"></i> 1.2 Как всё связано <span class="lesson-meta">8 мин</span></li>
                     </ul>
                 </li>
+                <!-- Модуль 2 -->
                 <li class="module-item">
                     <div class="module-title"><i class="fas fa-window-restore"></i> Модуль 2. RemoteApp</div>
                     <ul class="lesson-list">
-                        <li class="lesson-item"><i class="fas fa-file-alt"></i> 2.1 Что такое RemoteApp <span class="lesson-meta">12 мин</span></li>
-                        <li class="lesson-item"><i class="fas fa-file-alt"></i> 2.2 Ошибки подключения <span class="lesson-meta">10 мин</span></li>
+                        <li class="lesson-item" data-lesson="2.1"><i class="fas fa-file-alt"></i> 2.1 Что такое RemoteApp <span class="lesson-meta">12 мин</span></li>
+                        <li class="lesson-item" data-lesson="2.2"><i class="fas fa-file-alt"></i> 2.2 Ошибки подключения <span class="lesson-meta">10 мин</span></li>
                     </ul>
                 </li>
+                <!-- Модуль 3 -->
                 <li class="module-item">
                     <div class="module-title"><i class="fas fa-phone-alt"></i> Модуль 3. IP‑Телефония</div>
                     <ul class="lesson-list">
-                        <li class="lesson-item"><i class="fas fa-file-alt"></i> 3.1 Маршрут звонка <span class="lesson-meta">15 мин</span></li>
-                        <li class="lesson-item"><i class="fas fa-file-alt"></i> 3.2 Задержки и помехи <span class="lesson-meta">12 мин</span></li>
+                        <li class="lesson-item" data-lesson="3.1"><i class="fas fa-file-alt"></i> 3.1 Маршрут звонка <span class="lesson-meta">15 мин</span></li>
+                        <li class="lesson-item" data-lesson="3.2"><i class="fas fa-file-alt"></i> 3.2 Задержки и помехи <span class="lesson-meta">12 мин</span></li>
                     </ul>
                 </li>
+                <!-- Модуль 4 -->
                 <li class="module-item">
                     <div class="module-title"><i class="fas fa-cloud"></i> Модуль 4. CRM</div>
                     <ul class="lesson-list">
-                        <li class="lesson-item"><i class="fas fa-file-alt"></i> 4.1 Структура данных <span class="lesson-meta">14 мин</span></li>
-                        <li class="lesson-item"><i class="fas fa-file-alt"></i> 4.2 Почему тормозит <span class="lesson-meta">10 мин</span></li>
+                        <li class="lesson-item" data-lesson="4.1"><i class="fas fa-file-alt"></i> 4.1 Структура данных <span class="lesson-meta">14 мин</span></li>
+                        <li class="lesson-item" data-lesson="4.2"><i class="fas fa-file-alt"></i> 4.2 Почему тормозит <span class="lesson-meta">10 мин</span></li>
                     </ul>
                 </li>
+                <!-- Модуль 5 -->
                 <li class="module-item">
                     <div class="module-title"><i class="fas fa-file-invoice"></i> Модуль 5. Invoice Client</div>
                     <ul class="lesson-list">
-                        <li class="lesson-item"><i class="fas fa-file-alt"></i> 5.1 Выставление счетов <span class="lesson-meta">12 мин</span></li>
-                        <li class="lesson-item"><i class="fas fa-file-alt"></i> 5.2 Типовые сбои <span class="lesson-meta">8 мин</span></li>
+                        <li class="lesson-item" data-lesson="5.1"><i class="fas fa-file-alt"></i> 5.1 Выставление счетов <span class="lesson-meta">12 мин</span></li>
+                        <li class="lesson-item" data-lesson="5.2"><i class="fas fa-file-alt"></i> 5.2 Типовые сбои <span class="lesson-meta">8 мин</span></li>
                     </ul>
                 </li>
             </ul>
         </aside>
 
         <main class="lesson-content fade-in">
+            <!-- Динамически заполняемые элементы -->
             <div class="lesson-header">
-                <h3>1.1 Обзор систем</h3>
-                <span class="badge"><i class="far fa-clock"></i> 10 мин</span>
+                <h3 id="lesson-title">1.1 Обзор систем</h3>
+                <span class="badge" id="lesson-duration"><i class="far fa-clock"></i> 10 мин</span>
             </div>
 
-            <div class="video-placeholder">
+            <div class="video-placeholder" id="video-placeholder">
                 <i class="fas fa-play-circle"></i>
-                <span>Видеолекция: какие системы вас окружают</span>
+                <span id="video-text">Видеолекция: какие системы вас окружают</span>
             </div>
 
-            <div class="lesson-text">
-                <p>В этом уроке познакомимся с четырьмя ключевыми системами: RemoteApp (доступ к удалённым приложениям), IP-телефония, CRM и Invoice Client. Вы увидите, как они интегрированы в вашу повседневную работу и какие данные передают друг другу.</p>
-                <p>Поймёте, почему иногда пропадает звук, не открывается карточка клиента или зависает счёт, — и как на это реагировать.</p>
+            <div class="lesson-text" id="lesson-description">
+                <p>В этом уроке познакомимся с четырьмя ключевыми системами: RemoteApp (доступ к удалённым приложениям), IP-телефония, CRM и Invoice Client. Вы увидите, как они интегрированы в вашу повседневную работу и какие данные передают друг другу. Поймёте, почему иногда пропадает звук, не открывается карточка клиента или зависает счёт, — и как на это реагировать.</p>
             </div>
 
             <div class="materials">
                 <h4><i class="fas fa-paperclip"></i> Материалы</h4>
-                <ul>
+                <ul id="materials-list">
                     <li><a href="#"><i class="fas fa-file-pdf" style="color:#c2185b;"></i> Схема взаимодействия систем (PDF)</a></li>
                     <li><a href="#"><i class="fas fa-file-excel" style="color:#00bcd4;"></i> Чек-лист первого дня (Excel)</a></li>
                 </ul>
             </div>
 
             <div class="lesson-navigation">
-                <button class="nav-btn" disabled><i class="fas fa-arrow-left"></i> Предыдущий</button>
-                <button class="nav-btn">Следующий <i class="fas fa-arrow-right"></i></button>
+                <button class="nav-btn" id="prev-btn" disabled><i class="fas fa-arrow-left"></i> Предыдущий</button>
+                <button class="nav-btn" id="next-btn">Следующий <i class="fas fa-arrow-right"></i></button>
             </div>
         </main>
     </div>
@@ -425,34 +430,205 @@
     <footer>
         <div class="container">
             <p>© 2026 Учебный портал колл-центра · Для сотрудников первой линии</p>
-            <p style="margin-top: 10px;">По вопросам курса: i.kuzmintsev@gpbmobile.ru</p>
+            <p style="margin-top: 10px;">По вопросам курса: it.training@callcenter.ru</p>
         </div>
     </footer>
 
     <script>
+        // Данные всех уроков
+        const lessonsData = {
+            "1.1": {
+                title: "1.1 Обзор систем",
+                duration: "10 мин",
+                videoText: "Видеолекция: какие системы вас окружают",
+                description: "<p>В этом уроке познакомимся с четырьмя ключевыми системами: RemoteApp (доступ к удалённым приложениям), IP-телефония, CRM и Invoice Client. Вы увидите, как они интегрированы в вашу повседневную работу и какие данные передают друг другу. Поймёте, почему иногда пропадает звук, не открывается карточка клиента или зависает счёт, — и как на это реагировать.</p>",
+                materials: [
+                    { icon: "fa-file-pdf", color: "#c2185b", name: "Схема взаимодействия систем (PDF)", url: "#" },
+                    { icon: "fa-file-excel", color: "#00bcd4", name: "Чек-лист первого дня (Excel)", url: "#" }
+                ]
+            },
+            "1.2": {
+                title: "1.2 Как всё связано",
+                duration: "8 мин",
+                videoText: "Видеолекция: интеграция систем между собой",
+                description: "<p>Рассмотрим, как RemoteApp, телефония, CRM и Invoice Client обмениваются данными. Вы узнаете, какие процессы происходят при нажатии кнопки в интерфейсе и как диагностировать проблемы на стыке систем.</p>",
+                materials: [
+                    { icon: "fa-file-pdf", color: "#c2185b", name: "Схема интеграции (PDF)", url: "#" }
+                ]
+            },
+            "2.1": {
+                title: "2.1 Что такое RemoteApp",
+                duration: "12 мин",
+                videoText: "Видеолекция: основы RemoteApp",
+                description: "<p>RemoteApp позволяет запускать приложения, установленные на удалённом сервере, как будто они локальные. Разберём, как это работает, какие требования к сети и как выглядит типовое подключение.</p>",
+                materials: [
+                    { icon: "fa-file-pdf", color: "#c2185b", name: "Настройка RemoteApp (PDF)", url: "#" }
+                ]
+            },
+            "2.2": {
+                title: "2.2 Ошибки подключения",
+                duration: "10 мин",
+                videoText: "Видеолекция: типовые ошибки RemoteApp",
+                description: "<p>Самые частые проблемы: не запускается приложение, чёрный экран, ошибки лицензирования. Научимся их распознавать и сообщать в IT поддержку точную информацию.</p>",
+                materials: [
+                    { icon: "fa-file-pdf", color: "#c2185b", name: "Коды ошибок RemoteApp (PDF)", url: "#" }
+                ]
+            },
+            "3.1": {
+                title: "3.1 Маршрут звонка",
+                duration: "15 мин",
+                videoText: "Видеолекция: как проходит звонок",
+                description: "<p>От набора номера до соединения: какие серверы участвуют, как кодируется голос, что такое SIP и RTP. Поймёте, где могут возникать задержки.</p>",
+                materials: [
+                    { icon: "fa-file-pdf", color: "#c2185b", name: "Схема VoIP (PDF)", url: "#" }
+                ]
+            },
+            "3.2": {
+                title: "3.2 Задержки и помехи",
+                duration: "12 мин",
+                videoText: "Видеолекция: качество связи",
+                description: "<p>Джиттер, потеря пакетов, эхо — от чего это зависит и можно ли исправить на стороне оператора. Практические советы по гарнитуре и настройкам.</p>",
+                materials: [
+                    { icon: "fa-file-pdf", color: "#c2185b", name: "Диагностика качества (PDF)", url: "#" }
+                ]
+            },
+            "4.1": {
+                title: "4.1 Структура данных",
+                duration: "14 мин",
+                videoText: "Видеолекция: как устроена CRM",
+                description: "<p>Таблицы, поля, связи — базовая архитектура CRM. Зачем нужны индексы и почему поиск может быть медленным.</p>",
+                materials: [
+                    { icon: "fa-file-excel", color: "#00bcd4", name: "Пример структуры БД (Excel)", url: "#" }
+                ]
+            },
+            "4.2": {
+                title: "4.2 Почему тормозит",
+                duration: "10 мин",
+                videoText: "Видеолекция: причины медленной работы CRM",
+                description: "<p>Большие таблицы, неоптимальные запросы, кеширование. Что делать, если CRM зависает, и как объяснить клиенту, что происходит.</p>",
+                materials: [
+                    { icon: "fa-file-pdf", color: "#c2185b", name: "Чек-лист оптимизации (PDF)", url: "#" }
+                ]
+            },
+            "5.1": {
+                title: "5.1 Выставление счетов",
+                duration: "12 мин",
+                videoText: "Видеолекция: работа с Invoice Client",
+                description: "<p>Интерфейс системы, создание и отправка счетов, интеграция с CRM. Типовые действия оператора.</p>",
+                materials: [
+                    { icon: "fa-file-pdf", color: "#c2185b", name: "Инструкция Invoice Client (PDF)", url: "#" }
+                ]
+            },
+            "5.2": {
+                title: "5.2 Типовые сбои",
+                duration: "8 мин",
+                videoText: "Видеолекция: ошибки в Invoice Client",
+                description: "<p>Счёт не формируется, не приходит клиенту, дубликаты. Как быстро определить причину и к кому обращаться.</p>",
+                materials: [
+                    { icon: "fa-file-pdf", color: "#c2185b", name: "База знаний по ошибкам (PDF)", url: "#" }
+                ]
+            }
+        };
+
+        // Получаем элементы DOM
+        const lessonItems = document.querySelectorAll('.lesson-item');
+        const titleEl = document.getElementById('lesson-title');
+        const durationEl = document.getElementById('lesson-duration');
+        const videoTextEl = document.getElementById('video-text');
+        const descriptionEl = document.getElementById('lesson-description');
+        const materialsListEl = document.getElementById('materials-list');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Порядок уроков для навигации (массив ключей)
+        const lessonOrder = [
+            "1.1", "1.2",
+            "2.1", "2.2",
+            "3.1", "3.2",
+            "4.1", "4.2",
+            "5.1", "5.2"
+        ];
+
+        let currentLesson = "1.1"; // активный урок по умолчанию
+
+        // Функция загрузки урока
+        function loadLesson(lessonId) {
+            const data = lessonsData[lessonId];
+            if (!data) return;
+
+            // Обновляем контент
+            titleEl.textContent = data.title;
+            durationEl.innerHTML = `<i class="far fa-clock"></i> ${data.duration}`;
+            videoTextEl.textContent = data.videoText;
+            descriptionEl.innerHTML = data.description;
+
+            // Обновляем материалы
+            materialsListEl.innerHTML = '';
+            data.materials.forEach(mat => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="${mat.url}"><i class="fas ${mat.icon}" style="color:${mat.color};"></i> ${mat.name}</a>`;
+                materialsListEl.appendChild(li);
+            });
+
+            // Обновляем активный класс в меню
+            lessonItems.forEach(item => {
+                if (item.dataset.lesson === lessonId) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            // Обновляем состояние кнопок навигации
+            const currentIndex = lessonOrder.indexOf(lessonId);
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === lessonOrder.length - 1;
+
+            currentLesson = lessonId;
+        }
+
+        // Обработчики кликов на уроки
+        lessonItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const lessonId = this.dataset.lesson;
+                loadLesson(lessonId);
+            });
+        });
+
+        // Навигация: предыдущий
+        prevBtn.addEventListener('click', function() {
+            const currentIndex = lessonOrder.indexOf(currentLesson);
+            if (currentIndex > 0) {
+                const prevId = lessonOrder[currentIndex - 1];
+                loadLesson(prevId);
+            }
+        });
+
+        // Навигация: следующий
+        nextBtn.addEventListener('click', function() {
+            const currentIndex = lessonOrder.indexOf(currentLesson);
+            if (currentIndex < lessonOrder.length - 1) {
+                const nextId = lessonOrder[currentIndex + 1];
+                loadLesson(nextId);
+            }
+        });
+
+        // Загружаем первый урок при старте (уже активен в меню)
+        loadLesson("1.1");
+
+        // Fade-in элементы (оставляем как было)
         document.addEventListener('DOMContentLoaded', function() {
-            const elements = document.querySelectorAll('.fade-in');
+            const fadeElements = document.querySelectorAll('.fade-in');
             function checkVisibility() {
-                const windowHeight = window.innerHeight;
-                elements.forEach(el => {
+                fadeElements.forEach(el => {
                     const rect = el.getBoundingClientRect();
-                    if (rect.top < windowHeight - 100 && rect.bottom > 50) {
+                    if (rect.top < window.innerHeight - 100 && rect.bottom > 50) {
                         el.classList.add('visible');
                     }
                 });
             }
             window.addEventListener('scroll', checkVisibility);
             checkVisibility();
-
-            // Активный урок при клике
-            const lessons = document.querySelectorAll('.lesson-item');
-            lessons.forEach(lesson => {
-                lesson.addEventListener('click', function() {
-                    lessons.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                    document.querySelector('.lesson-header h3').innerText = this.innerText.trim();
-                });
-            });
         });
     </script>
 </body>
